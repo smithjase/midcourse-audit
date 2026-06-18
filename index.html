@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Healthspan Self-Audit — Midcourse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16302A;
+    --ink-soft:#2C4842;
+    --paper:#EEF0EA;
+    --surface:#FBFBF8;
+    --line:#D6D9D0;
+    --muted:#5C6B64;
+    --accent:#2F7D5B;
+    --accent-deep:#1E5E42;
+    --clay:#B0543B;
+    --amber:#B98A33;
+    --green:#2F7D5B;
+    --display:'Fraunces',Georgia,'Times New Roman',serif;
+    --body:'Hanken Grotesk',system-ui,-apple-system,sans-serif;
+    --maxw:660px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:var(--body);
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.55;
+    min-height:100vh;
+    padding:clamp(20px,5vw,56px) 20px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .wrap{width:100%;max-width:var(--maxw)}
+  .eyebrow{
+    font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent-deep);
+  }
+  .brandline{
+    display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+    padding-bottom:18px;margin-bottom:34px;border-bottom:1px solid var(--line);
+  }
+  .brandmark{font-family:var(--display);font-weight:600;font-size:21px;letter-spacing:-.01em}
+  .brandsub{font-size:13px;color:var(--muted);font-style:italic;font-family:var(--display)}
+  h1{font-family:var(--display);font-weight:500;line-height:1.08;letter-spacing:-.015em;
+    font-size:clamp(33px,6.4vw,52px);margin:18px 0}
+  .lede{font-size:clamp(17px,2.4vw,19px);color:var(--ink-soft);max-width:52ch}
+  .meta{font-size:13px;color:var(--muted);margin-top:26px;letter-spacing:.01em}
+  .meta b{color:var(--ink);font-weight:600}
+
+  /* screens */
+  .screen{display:none;animation:fade .5s ease both}
+  .screen.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){.screen{animation:none}*{transition:none!important}}
+
+  /* buttons */
+  .btn{
+    font-family:var(--body);font-size:16px;font-weight:600;cursor:pointer;
+    border:none;border-radius:2px;padding:15px 26px;
+    background:var(--ink);color:#F4F6F1;transition:background .2s,transform .1s;
+    letter-spacing:.01em;
+  }
+  .btn:hover{background:var(--accent-deep)}
+  .btn:active{transform:translateY(1px)}
+  .btn:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+  .btn[disabled]{opacity:.35;cursor:not-allowed}
+  .btn--ghost{background:none;color:var(--ink-soft);padding:15px 10px}
+  .btn--ghost:hover{background:none;color:var(--ink);text-decoration:underline}
+  .btn--full{width:100%}
+
+  /* progress */
+  .progress{margin-bottom:30px}
+  .progbar{height:3px;background:var(--line);border-radius:3px;overflow:hidden}
+  .progfill{height:100%;width:0;background:var(--accent);transition:width .4s ease}
+  .progmeta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);
+    margin-top:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:600}
+
+  /* question */
+  fieldset{border:none}
+  .qnum{font-family:var(--display);font-size:14px;color:var(--accent-deep);font-style:italic;margin-bottom:8px}
+  legend.qtext{font-family:var(--display);font-weight:500;line-height:1.2;letter-spacing:-.01em;
+    font-size:clamp(23px,4vw,30px);margin-bottom:26px;display:block}
+  .opts{display:flex;flex-direction:column;gap:10px;margin-bottom:30px}
+  .opt{position:relative}
+  .opt input{position:absolute;opacity:0;width:1px;height:1px}
+  .opt label{
+    display:flex;align-items:center;gap:14px;cursor:pointer;
+    background:var(--surface);border:1px solid var(--line);border-radius:3px;
+    padding:15px 18px;font-size:16px;transition:border-color .15s,background .15s;
+  }
+  .opt label:hover{border-color:var(--accent)}
+  .opt .dot{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--line);
+    flex:none;transition:border-color .15s,box-shadow .15s}
+  .opt input:checked + label{border-color:var(--accent);background:#F0F6F1}
+  .opt input:checked + label .dot{border-color:var(--accent);box-shadow:inset 0 0 0 4px var(--accent)}
+  .opt input:focus-visible + label{outline:3px solid var(--accent);outline-offset:2px}
+  .navrow{display:flex;justify-content:space-between;align-items:center;gap:12px}
+
+  /* result */
+  .scoretop{display:flex;align-items:flex-end;gap:20px;flex-wrap:wrap;
+    padding-bottom:24px;border-bottom:1px solid var(--line);margin-bottom:30px}
+  .bignum{font-family:var(--display);font-weight:500;font-size:clamp(56px,13vw,84px);line-height:.85;letter-spacing:-.03em}
+  .bignum span{font-size:.36em;color:var(--muted)}
+  .band{font-family:var(--display);font-weight:600;font-size:clamp(22px,4.5vw,30px);line-height:1.05;letter-spacing:-.01em}
+  .band small{display:block;font-family:var(--body);font-weight:600;font-size:11px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+  .bandcopy{font-size:16px;color:var(--ink-soft);max-width:54ch;margin-bottom:36px}
+
+  .sectlabel{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:16px}
+
+  /* course line */
+  .courseline{background:var(--surface);border:1px solid var(--line);border-radius:4px;
+    padding:24px 20px 18px;margin-bottom:34px}
+  .courseline svg{width:100%;height:auto;display:block;overflow:visible}
+
+  /* pillar bars */
+  .bars{display:flex;flex-direction:column;gap:16px;margin-bottom:36px}
+  .bar .barhd{display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px}
+  .bar .barhd b{font-weight:600}
+  .bar .barhd .v{color:var(--muted);font-variant-numeric:tabular-nums}
+  .track{height:8px;background:var(--line);border-radius:8px;overflow:hidden}
+  .fill{height:100%;width:0;background:var(--accent);border-radius:8px;transition:width .9s cubic-bezier(.2,.7,.2,1)}
+
+  /* prescription */
+  .rx{background:var(--ink);color:#EAF0EC;border-radius:4px;padding:26px 24px;margin-bottom:36px}
+  .rx .rxlabel{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+    color:#9DC4AF;margin-bottom:10px}
+  .rx h3{font-family:var(--display);font-weight:500;font-size:24px;letter-spacing:-.01em;margin-bottom:10px}
+  .rx p{font-size:15.5px;color:#CFE0D5;max-width:56ch}
+
+  /* CTA */
+  .cta{border-top:1px solid var(--line);padding-top:34px}
+  .cta h2{font-family:var(--display);font-weight:500;font-size:clamp(24px,4.5vw,32px);
+    letter-spacing:-.015em;line-height:1.12;margin-bottom:12px}
+  .cta .sub{color:var(--ink-soft);font-size:16px;margin-bottom:24px;max-width:52ch}
+  .field{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+  .field input{font-family:var(--body);font-size:16px;padding:15px 16px;border:1px solid var(--line);
+    border-radius:3px;background:var(--surface);color:var(--ink)}
+  .field input:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-color:var(--accent)}
+  .finehint{font-size:13px;color:var(--muted);margin-top:14px}
+  .or{display:flex;align-items:center;gap:14px;color:var(--muted);font-size:13px;
+    letter-spacing:.12em;text-transform:uppercase;margin:24px 0}
+  .or::before,.or::after{content:"";height:1px;background:var(--line);flex:1}
+  .restart{margin-top:30px;text-align:center}
+  .restart button{background:none;border:none;color:var(--muted);font-family:var(--body);
+    font-size:13px;cursor:pointer;text-decoration:underline;letter-spacing:.04em}
+  .restart button:hover{color:var(--ink)}
+  @media(min-width:520px){.field{flex-direction:row}.field input{flex:1}}
+  /* feedback step */
+  .fb{margin-bottom:18px}
+  .fbq{font-size:15px;font-weight:600;margin-bottom:10px}
+  .fbopts{display:flex;gap:8px;flex-wrap:wrap}
+  .fbopts button{font-family:var(--body);font-size:14px;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:3px;padding:11px 16px;transition:border-color .15s,background .15s}
+  .fbopts button:hover{border-color:var(--accent)}
+  .fbopts button[aria-pressed="true"]{border-color:var(--accent);background:#F0F6F1;font-weight:600}
+  .fbopts button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+  textarea{width:100%;font-family:var(--body);font-size:15px;padding:12px 14px;border:1px solid var(--line);border-radius:3px;background:var(--surface);color:var(--ink);resize:vertical}
+  textarea:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="brandline">
+    <span class="brandmark">Midcourse</span>
+    <span class="brandsub">healthspan coaching for the midlife turning point</span>
+  </div>
+
+  <!-- INTRO -->
+  <section id="intro" class="screen active" aria-labelledby="introh">
+    <p class="eyebrow">The Healthspan Self-Audit</p>
+    <h1 id="introh">Midlife is the turning point. Find out which way you're heading.</h1>
+    <p class="lede">Fifteen honest questions across the three things that decide how well you age — and the three levers that move them. At the end you'll see your weakest link, and the one lever to pull first.</p>
+    <p class="meta"><b>15 questions</b> &nbsp;·&nbsp; about 4 minutes &nbsp;·&nbsp; your result on screen, instantly</p>
+    <p style="margin-top:30px"><button class="btn" id="begin">Begin the audit →</button></p>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz" class="screen" aria-live="polite">
+    <div class="progress">
+      <div class="progbar"><div class="progfill" id="progfill"></div></div>
+      <div class="progmeta"><span id="progcount">Question 1 of 15</span><span id="progpillar"></span></div>
+    </div>
+    <form id="qform">
+      <fieldset>
+        <div class="qnum" id="qnum">01</div>
+        <legend class="qtext" id="qtext"></legend>
+        <div class="opts" id="opts"></div>
+      </fieldset>
+      <div class="navrow">
+        <button type="button" class="btn--ghost btn" id="back" style="background:none;color:var(--ink-soft)">← Back</button>
+        <button type="button" class="btn" id="next" disabled>Next →</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- RESULT -->
+  <section id="result" class="screen" aria-labelledby="resulth">
+    <p class="eyebrow">Your result</p>
+    <div class="scoretop">
+      <div class="bignum" id="totalnum">0<span>/75</span></div>
+      <div class="band">
+        <small>Where you stand</small>
+        <span id="bandname"></span>
+      </div>
+    </div>
+    <p class="bandcopy" id="bandcopy"></p>
+
+    <p class="sectlabel">Your three levers — and the link to pull first</p>
+    <div class="courseline"><svg id="lineviz" viewBox="0 0 600 180" role="img" aria-label="Your three levers plotted by score"></svg></div>
+
+    <p class="sectlabel">Your three pillars</p>
+    <div class="bars" id="bars"></div>
+
+    <div class="rx">
+      <div class="rxlabel">Your likely starting point</div>
+      <h3 id="rxhead"></h3>
+      <p id="rxbody"></p>
+      <p id="rxnote" style="font-size:13px;opacity:.75;margin-top:14px">This is the headline from your scores. Your full plan — properly sequenced, and accounting for your sleep, stress and goals — is what we build together.</p>
+    </div>
+
+        <div class="cta" id="cta">
+      <h2>Three quick questions \u2014 to help me sharpen this.</h2>
+      <p class="sub">You're one of a handful of people seeing this early, so your honest read is the whole point. Takes ten seconds.</p>
+
+      <div class="fb">
+        <p class="fbq">Did your result feel accurate?</p>
+        <div class="fbopts" data-fb="accuracy">
+          <button type="button" data-v="Spot on">Spot on</button>
+          <button type="button" data-v="Roughly right">Roughly right</button>
+          <button type="button" data-v="Not really">Not really</button>
+        </div>
+      </div>
+
+      <div class="fb">
+        <p class="fbq">Was it useful?</p>
+        <div class="fbopts" data-fb="useful">
+          <button type="button" data-v="Very">Very</button>
+          <button type="button" data-v="Somewhat">Somewhat</button>
+          <button type="button" data-v="Not much">Not much</button>
+        </div>
+      </div>
+
+      <div class="fb">
+        <p class="fbq">Would you hand over your email for the full plan and a 5-day course?</p>
+        <div class="fbopts" data-fb="email_willing">
+          <button type="button" data-v="Yes">Yes</button>
+          <button type="button" data-v="Maybe">Maybe</button>
+          <button type="button" data-v="No">No</button>
+        </div>
+      </div>
+
+      <textarea id="fb_comment" rows="3" placeholder="Anything confusing, or anything you'd change? (optional)"></textarea>
+      <div class="field" style="margin-top:12px"><input type="email" id="fb_email" placeholder="Your email (optional)" autocomplete="email" aria-label="Your email, optional"></div>
+
+      <button type="button" class="btn btn--full" id="fbsend" style="margin-top:14px">Send feedback \u2192</button>
+      <p class="finehint">Goes straight to me \u2014 nothing public, nothing automated.</p>
+    </div>
+
+    <div class="cta" id="thanks" style="display:none">
+      <h2>Thank you \u2014 genuinely.</h2>
+      <p class="sub">That's exactly the input I need to get this right. I'll be in touch.</p>
+      <div class="restart"><button id="restart">Retake the audit</button></div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // === capture config ===
+  var SHEET_ENDPOINT = "[APPS_SCRIPT_URL]"; // paste your Google Apps Script web-app URL here
+  var lastResult = null;
+  var fb = {};
+  function postData(payload){
+    if(!SHEET_ENDPOINT || SHEET_ENDPOINT.indexOf("APPS_SCRIPT") > -1){ console.log("[no endpoint set] payload:", payload); return Promise.resolve(); }
+    return fetch(SHEET_ENDPOINT, {method:"POST", mode:"no-cors", headers:{"Content-Type":"text/plain;charset=utf-8"}, body:JSON.stringify(payload)}).catch(function(e){ console.warn("capture failed", e); });
+  }
+
+  // pillar/lever map. score 1-5 each. 5 q per pillar, 5 q per lever.
+  var Q = [
+    {p:"Physical",  l:"Exercise",  t:"I do strength or resistance training at least twice a week."},
+    {p:"Physical",  l:"Exercise",  t:"I get regular aerobic training — brisk, sustainable \u201CZone 2\u201D effort — most weeks."},
+    {p:"Physical",  l:"Exercise",  t:"Everyday physical tasks — stairs, carrying shopping, getting up off the floor — feel easy."},
+    {p:"Physical",  l:"Nutrition", t:"I eat a clear source of protein at most meals to protect my muscle."},
+    {p:"Physical",  l:"Sleep",     t:"I wake up most mornings feeling physically recovered, not stiff or drained."},
+    {p:"Cognition", l:"Exercise",  t:"I move in ways that raise my heart rate or challenge coordination — which also sharpens the brain."},
+    {p:"Cognition", l:"Nutrition", t:"I regularly eat oily fish, colourful vegetables and other foods that support brain health."},
+    {p:"Cognition", l:"Nutrition", t:"I keep ultra-processed food and alcohol low enough that my mood and focus stay steady."},
+    {p:"Cognition", l:"Sleep",     t:"My sleep is good enough that my memory and concentration feel sharp through the day."},
+    {p:"Cognition", l:"Sleep",     t:"I treat sleep as non-negotiable, rather than the first thing I sacrifice when busy."},
+    {p:"Autonomic", l:"Exercise",  t:"I use easy movement — walks, gentle sessions — to wind down. I'm not only ever training hard."},
+    {p:"Autonomic", l:"Nutrition", t:"My energy stays steady through the day rather than swinging on caffeine and sugar."},
+    {p:"Autonomic", l:"Nutrition", t:"I rarely eat late at night — most of my food lands earlier in the day."},
+    {p:"Autonomic", l:"Sleep",     t:"I fall asleep and stay asleep without relying on alcohol or screens to switch off."},
+    {p:"Autonomic", l:"Sleep",     t:"I generally feel recovered and resilient — and my resting heart rate / HRV, if I track it, backs that up."}
+  ];
+
+  var SCALE = [
+    {v:1,t:"Not at all true"},
+    {v:2,t:"Rarely true"},
+    {v:3,t:"Sometimes true"},
+    {v:4,t:"Mostly true"},
+    {v:5,t:"Completely true"}
+  ];
+
+  var BANDS = [
+    {min:56, name:"Evergreen", color:"var(--green)",
+     copy:"You're already pulling most of the chain. The opportunity now is to fine-tune your weakest link and protect the habits that are clearly working for you."},
+    {min:36, name:"On the path", color:"var(--amber)",
+     copy:"You're doing real things right. There's one clear next move that will give you the most return — and it's often not the one you'd guess. It's below."},
+    {min:0,  name:"A wake-up call", color:"var(--clay)",
+     copy:"This is the turning point talking — and that's useful, not alarming. Every lever that moves your healthspan is within reach, and you're about to see exactly which one to pull first."}
+  ];
+
+  var RX = {
+    Exercise:{h:"Movement is your biggest return.",
+      b:"The two highest-value additions in midlife are twice-weekly strength work — to keep the muscle that acts as your glucose sink — and regular, sustainable \u201CZone 2\u201D aerobic sessions that rebuild your metabolic engine. Start with whichever you're missing more."},
+    Nutrition:{h:"How you eat is your biggest return.",
+      b:"A mostly whole-food, Mediterranean-pattern way of eating — plenty of plants, oily fish, enough protein, far less ultra-processed food — is one of the strongest anti-inflammatory and metabolic levers you have. Begin by crowding out the processed stuff, not by counting."},
+    Sleep:{h:"Recovery is your biggest return.",
+      b:"Sleep is the lever almost everyone underrates. Protecting it steadies your metabolism, your mood and your hormones, often within days — and it makes every other lever work better. It's the cheapest win on this list."}
+  };
+
+  var LEVERS=["Exercise","Nutrition","Sleep"];
+  var PILLARS=["Physical","Cognition","Autonomic"];
+  var answers = new Array(Q.length).fill(0);
+  var cur = 0;
+
+  var $=function(id){return document.getElementById(id)};
+  function show(id){
+    var s=document.querySelectorAll(".screen");
+    for(var i=0;i<s.length;i++)s[i].classList.remove("active");
+    $(id).classList.add("active");
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
+
+  function renderQ(){
+    var q=Q[cur];
+    $("qnum").textContent=("0"+(cur+1)).slice(-2);
+    $("qtext").textContent=q.t;
+    $("progcount").textContent="Question "+(cur+1)+" of "+Q.length;
+    $("progpillar").textContent=q.p;
+    $("progfill").style.width=((cur)/Q.length*100)+"%";
+    var opts=$("opts");opts.innerHTML="";
+    for(var i=0;i<SCALE.length;i++){
+      (function(s){
+        var wrap=document.createElement("div");wrap.className="opt";
+        var inp=document.createElement("input");
+        inp.type="radio";inp.name="q";inp.id="opt"+s.v;inp.value=s.v;
+        if(answers[cur]===s.v)inp.checked=true;
+        inp.addEventListener("change",function(){
+          answers[cur]=s.v;$("next").disabled=false;
+        });
+        var lab=document.createElement("label");lab.setAttribute("for","opt"+s.v);
+        var dot=document.createElement("span");dot.className="dot";
+        var txt=document.createElement("span");txt.textContent=s.t;
+        lab.appendChild(dot);lab.appendChild(txt);
+        wrap.appendChild(inp);wrap.appendChild(lab);
+        opts.appendChild(wrap);
+      })(SCALE[i]);
+    }
+    $("next").disabled = answers[cur]===0;
+    $("next").textContent = (cur===Q.length-1) ? "See my result →" : "Next →";
+    $("back").style.visibility = (cur===0) ? "hidden" : "visible";
+  }
+
+  function scores(){
+    var pil={Physical:0,Cognition:0,Autonomic:0};
+    var lev={Exercise:0,Nutrition:0,Sleep:0};
+    for(var i=0;i<Q.length;i++){pil[Q[i].p]+=answers[i];lev[Q[i].l]+=answers[i];}
+    var total=answers.reduce(function(a,b){return a+b},0);
+    return {pil:pil,lev:lev,total:total};
+  }
+
+  function weakest(lev){
+    var w=LEVERS[0];
+    for(var i=1;i<LEVERS.length;i++){if(lev[LEVERS[i]]<lev[w])w=LEVERS[i];}
+    return w;
+  }
+
+  function drawLine(lev){
+    var W=600,H=180,padX=70,padY=28;
+    var xs=[padX,W/2,W-padX];
+    var maxV=25,minPlot=H-padY,maxPlot=padY;
+    function y(v){return minPlot-(v/maxV)*(minPlot-maxPlot);}
+    var pts=LEVERS.map(function(k,i){return{x:xs[i],y:y(lev[k]),k:k,v:lev[k]};});
+    var weak=weakest(lev);
+    var svg="";
+    // connecting path
+    var d="M"+pts[0].x+","+pts[0].y+" L"+pts[1].x+","+pts[1].y+" L"+pts[2].x+","+pts[2].y;
+    svg+='<path d="'+d+'" fill="none" stroke="#C7CCC2" stroke-width="2"/>';
+    pts.forEach(function(pt){
+      var isWeak=pt.k===weak;
+      var r=isWeak?9:6;
+      var col=isWeak?"#B0543B":"#2F7D5B";
+      if(isWeak){
+        svg+='<circle cx="'+pt.x+'" cy="'+pt.y+'" r="16" fill="#B0543B" opacity="0.13"/>';
+      }
+      svg+='<circle cx="'+pt.x+'" cy="'+pt.y+'" r="'+r+'" fill="'+col+'"/>';
+      svg+='<text x="'+pt.x+'" y="'+(H-6)+'" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="14" font-weight="600" fill="#16302A">'+pt.k+'</text>';
+      svg+='<text x="'+pt.x+'" y="'+(pt.y-16)+'" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="13" fill="#5C6B64">'+pt.v+'/25</text>';
+      if(isWeak){
+        svg+='<text x="'+pt.x+'" y="'+(pt.y+30)+'" text-anchor="middle" font-family="Fraunces,serif" font-style="italic" font-size="13" fill="#B0543B">start here</text>';
+      }
+    });
+    $("lineviz").innerHTML=svg;
+  }
+
+  function renderResult(){
+    var s=scores();
+    // reset feedback UI for a fresh result
+    $("cta").style.display=""; $("thanks").style.display="none";
+    var sendBtn=$("fbsend"); if(sendBtn){ sendBtn.disabled=false; sendBtn.textContent="Send feedback \u2192"; }
+    fb={};
+    var fbBtns=document.querySelectorAll(".fbopts button"); for(var fi=0; fi<fbBtns.length; fi++){ fbBtns[fi].setAttribute("aria-pressed","false"); }
+    if($("fb_comment"))$("fb_comment").value=""; if($("fb_email"))$("fb_email").value="";
+    var band=BANDS.find(function(b){return s.total>=b.min;});
+    $("totalnum").innerHTML=s.total+'<span>/75</span>';
+    $("bandname").textContent=band.name;
+    $("bandname").style.color=band.color;
+    $("bandcopy").textContent=band.copy;
+    drawLine(s.lev);
+    // pillar bars
+    var bars=$("bars");bars.innerHTML="";
+    PILLARS.forEach(function(k){
+      var row=document.createElement("div");row.className="bar";
+      row.innerHTML='<div class="barhd"><b>'+k+'</b><span class="v">'+s.pil[k]+'/25</span></div>'+
+        '<div class="track"><div class="fill" data-w="'+(s.pil[k]/25*100)+'"></div></div>';
+      bars.appendChild(row);
+    });
+    // a weak lever drives the headline starting point
+    var w=weakest(s.lev);
+    $("rxhead").textContent=RX[w].h;
+    $("rxbody").textContent=RX[w].b;
+    // store the computed profile for the feedback submit
+    lastResult = {total:s.total, band:band.name, physical:s.pil.Physical, cognition:s.pil.Cognition, autonomic:s.pil.Autonomic, exercise:s.lev.Exercise, nutrition:s.lev.Nutrition, sleep:s.lev.Sleep, weak:w};
+    show("result");
+    // animate bars after paint
+    requestAnimationFrame(function(){requestAnimationFrame(function(){
+      var fills=document.querySelectorAll(".fill");
+      for(var i=0;i<fills.length;i++)fills[i].style.width=fills[i].getAttribute("data-w")+"%";
+    })});
+  }
+
+  // events
+  $("begin").addEventListener("click",function(){cur=0;show("quiz");renderQ();});
+  $("next").addEventListener("click",function(){
+    if(answers[cur]===0)return;
+    if(cur===Q.length-1){ $("progfill").style.width="100%"; renderResult(); }
+    else { cur++; renderQ(); }
+  });
+  $("back").addEventListener("click",function(){ if(cur>0){cur--;renderQ();} });
+  $("restart").addEventListener("click",function(){
+    answers=new Array(Q.length).fill(0);cur=0;show("intro");
+  });
+  // feedback selection
+  var fbGroups=document.querySelectorAll(".fbopts");
+  for(var g=0; g<fbGroups.length; g++){
+    (function(group){
+      group.addEventListener("click", function(e){
+        var btn=e.target.closest("button"); if(!btn) return;
+        fb[group.getAttribute("data-fb")]=btn.getAttribute("data-v");
+        var bs=group.querySelectorAll("button");
+        for(var i=0;i<bs.length;i++){ bs[i].setAttribute("aria-pressed", bs[i]===btn ? "true":"false"); }
+      });
+    })(fbGroups[g]);
+  }
+  // feedback send
+  var fbsendBtn=$("fbsend");
+  if(fbsendBtn){
+    fbsendBtn.addEventListener("click", function(){
+      var lr=lastResult||{};
+      var payload={
+        total:lr.total, band:lr.band, physical:lr.physical, cognition:lr.cognition, autonomic:lr.autonomic,
+        exercise:lr.exercise, nutrition:lr.nutrition, sleep:lr.sleep, weak:lr.weak,
+        answers:answers.slice(),
+        fb_accuracy:fb.accuracy||"", fb_useful:fb.useful||"", fb_email_willing:fb.email_willing||"",
+        fb_comment:((($("fb_comment")||{}).value)||"").slice(0,2000),
+        email:((($("fb_email")||{}).value)||"").trim(),
+        ua:navigator.userAgent, ts_client:new Date().toISOString()
+      };
+      fbsendBtn.disabled=true; fbsendBtn.textContent="Sending\u2026";
+      postData(payload).then(function(){
+        $("cta").style.display="none"; $("thanks").style.display="block";
+        window.scrollTo({top:0, behavior:"smooth"});
+      });
+    });
+  }
+})();
+</script>
+</body>
+</html>
