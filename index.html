@@ -53,13 +53,13 @@
   .lede{font-size:clamp(17px,2.4vw,19px);color:var(--ink-soft);max-width:52ch}
   .meta{font-size:13px;color:var(--muted);margin-top:26px;letter-spacing:.01em}
   .meta b{color:var(--ink);font-weight:600}
-
+ 
   /* screens */
   .screen{display:none;animation:fade .5s ease both}
   .screen.active{display:block}
   @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
   @media (prefers-reduced-motion:reduce){.screen{animation:none}*{transition:none!important}}
-
+ 
   /* buttons */
   .btn{
     font-family:var(--body);font-size:16px;font-weight:600;cursor:pointer;
@@ -74,14 +74,14 @@
   .btn--ghost{background:none;color:var(--ink-soft);padding:15px 10px}
   .btn--ghost:hover{background:none;color:var(--ink);text-decoration:underline}
   .btn--full{width:100%}
-
+ 
   /* progress */
   .progress{margin-bottom:30px}
   .progbar{height:3px;background:var(--line);border-radius:3px;overflow:hidden}
   .progfill{height:100%;width:0;background:var(--accent);transition:width .4s ease}
   .progmeta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);
     margin-top:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:600}
-
+ 
   /* question */
   fieldset{border:none}
   .qnum{font-family:var(--display);font-size:14px;color:var(--accent-deep);font-style:italic;margin-bottom:8px}
@@ -102,7 +102,7 @@
   .opt input:checked + label .dot{border-color:var(--accent);box-shadow:inset 0 0 0 4px var(--accent)}
   .opt input:focus-visible + label{outline:3px solid var(--accent);outline-offset:2px}
   .navrow{display:flex;justify-content:space-between;align-items:center;gap:12px}
-
+ 
   /* result */
   .scoretop{display:flex;align-items:flex-end;gap:20px;flex-wrap:wrap;
     padding-bottom:24px;border-bottom:1px solid var(--line);margin-bottom:30px}
@@ -112,15 +112,26 @@
   .band small{display:block;font-family:var(--body);font-weight:600;font-size:11px;letter-spacing:.2em;
     text-transform:uppercase;color:var(--muted);margin-bottom:4px}
   .bandcopy{font-size:16px;color:var(--ink-soft);max-width:54ch;margin-bottom:36px}
-
+ 
   .sectlabel{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
     color:var(--muted);margin-bottom:16px}
-
+ 
   /* course line */
   .courseline{background:var(--surface);border:1px solid var(--line);border-radius:4px;
     padding:24px 20px 18px;margin-bottom:34px}
   .courseline svg{width:100%;height:auto;display:block;overflow:visible}
-
+ 
+  /* lowest answers */
+  .lowest{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:8px 20px;margin-bottom:34px}
+  .lowest .item{display:flex;align-items:flex-start;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .lowest .item:last-child{border-bottom:none}
+  .lowest .pip{font-family:var(--display);font-weight:600;font-size:20px;color:var(--clay);flex:none;
+    width:54px;height:54px;border-radius:50%;border:1.5px solid var(--clay);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(176,84,59,.07);line-height:1}
+  .lowest .pip span{font-size:10px;color:var(--muted);font-family:var(--body);font-weight:600}
+  .lowest .itxt{font-size:15.5px;color:var(--ink-soft);padding-top:4px}
+  .lowest .itag{display:block;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-deep);margin-bottom:3px}
+ 
   /* pillar bars */
   .bars{display:flex;flex-direction:column;gap:16px;margin-bottom:36px}
   .bar .barhd{display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px}
@@ -128,14 +139,14 @@
   .bar .barhd .v{color:var(--muted);font-variant-numeric:tabular-nums}
   .track{height:8px;background:var(--line);border-radius:8px;overflow:hidden}
   .fill{height:100%;width:0;background:var(--accent);border-radius:8px;transition:width .9s cubic-bezier(.2,.7,.2,1)}
-
+ 
   /* prescription */
   .rx{background:var(--ink);color:#EAF0EC;border-radius:4px;padding:26px 24px;margin-bottom:36px}
   .rx .rxlabel{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
     color:#9DC4AF;margin-bottom:10px}
   .rx h3{font-family:var(--display);font-weight:500;font-size:24px;letter-spacing:-.01em;margin-bottom:10px}
   .rx p{font-size:15.5px;color:#CFE0D5;max-width:56ch}
-
+ 
   /* CTA */
   .cta{border-top:1px solid var(--line);padding-top:34px}
   .cta h2{font-family:var(--display);font-weight:500;font-size:clamp(24px,4.5vw,32px);
@@ -168,21 +179,21 @@
 </head>
 <body>
 <div class="wrap">
-
+ 
   <div class="brandline">
     <span class="brandmark">Midcourse</span>
     <span class="brandsub">healthspan coaching for the midlife turning point</span>
   </div>
-
+ 
   <!-- INTRO -->
   <section id="intro" class="screen active" aria-labelledby="introh">
     <p class="eyebrow">The Healthspan Self-Audit</p>
     <h1 id="introh">Midlife is the turning point. Find out which way you're heading.</h1>
-    <p class="lede">Fifteen honest questions across the three things that decide how well you age — and the three levers that move them. At the end you'll see your weakest link, and the one lever to pull first.</p>
+    <p class="lede">Fifteen honest questions across the three things that decide how well you age — and the three levers that move them. At the end you'll see your weakest link, and the one move to make first.</p>
     <p class="meta"><b>15 questions</b> &nbsp;·&nbsp; about 4 minutes &nbsp;·&nbsp; your result on screen, instantly</p>
     <p style="margin-top:30px"><button class="btn" id="begin">Begin the audit →</button></p>
   </section>
-
+ 
   <!-- QUIZ -->
   <section id="quiz" class="screen" aria-live="polite">
     <div class="progress">
@@ -201,7 +212,7 @@
       </div>
     </form>
   </section>
-
+ 
   <!-- RESULT -->
   <section id="result" class="screen" aria-labelledby="resulth">
     <p class="eyebrow">Your result</p>
@@ -213,24 +224,27 @@
       </div>
     </div>
     <p class="bandcopy" id="bandcopy"></p>
-
-    <p class="sectlabel">Your three levers — and the link to pull first</p>
-    <div class="courseline"><svg id="lineviz" viewBox="0 0 600 180" role="img" aria-label="Your three levers plotted by score"></svg></div>
-
+ 
+    <p class="sectlabel">Your training drivers — and the one to pull first</p>
+    <div class="courseline"><svg id="lineviz" viewBox="0 0 600 190" role="img" aria-label="Your training drivers plotted by score"></svg></div>
+ 
+    <p class="sectlabel">Your two lowest answers</p>
+    <div class="lowest" id="lowest"></div>
+ 
     <p class="sectlabel">Your three pillars</p>
     <div class="bars" id="bars"></div>
-
+ 
     <div class="rx">
       <div class="rxlabel">Your likely starting point</div>
       <h3 id="rxhead"></h3>
       <p id="rxbody"></p>
       <p id="rxnote" style="font-size:13px;opacity:.75;margin-top:14px">This is the headline from your scores. Your full plan — properly sequenced, and accounting for your sleep, stress and goals — is what we build together.</p>
     </div>
-
+ 
         <div class="cta" id="cta">
-      <h2>Three quick questions \u2014 to help me sharpen this.</h2>
+      <h2>Three quick questions — to help me sharpen this.</h2>
       <p class="sub">You're one of a handful of people seeing this early, so your honest read is the whole point. Takes ten seconds.</p>
-
+ 
       <div class="fb">
         <p class="fbq">Did your result feel accurate?</p>
         <div class="fbopts" data-fb="accuracy">
@@ -239,7 +253,7 @@
           <button type="button" data-v="Not really">Not really</button>
         </div>
       </div>
-
+ 
       <div class="fb">
         <p class="fbq">Was it useful?</p>
         <div class="fbopts" data-fb="useful">
@@ -248,7 +262,7 @@
           <button type="button" data-v="Not much">Not much</button>
         </div>
       </div>
-
+ 
       <div class="fb">
         <p class="fbq">Would you hand over your email for the full plan and a 5-day course?</p>
         <div class="fbopts" data-fb="email_willing">
@@ -257,28 +271,28 @@
           <button type="button" data-v="No">No</button>
         </div>
       </div>
-
+ 
       <textarea id="fb_comment" rows="3" placeholder="Anything confusing, or anything you'd change? (optional)"></textarea>
       <div class="field" style="margin-top:12px"><input type="email" id="fb_email" placeholder="Your email (optional)" autocomplete="email" aria-label="Your email, optional"></div>
-
-      <button type="button" class="btn btn--full" id="fbsend" style="margin-top:14px">Send feedback \u2192</button>
-      <p class="finehint">Goes straight to me \u2014 nothing public, nothing automated.</p>
+ 
+      <button type="button" class="btn btn--full" id="fbsend" style="margin-top:14px">Send feedback →</button>
+      <p class="finehint">Goes straight to me — nothing public, nothing automated.</p>
     </div>
-
+ 
     <div class="cta" id="thanks" style="display:none">
-      <h2>Thank you \u2014 genuinely.</h2>
+      <h2>Thank you — genuinely.</h2>
       <p class="sub">That's exactly the input I need to get this right. I'll be in touch.</p>
       <div class="restart"><button id="restart">Retake the audit</button></div>
     </div>
   </section>
-
+ 
 </div>
-
+ 
 <script>
 (function(){
   "use strict";
-
-  // === capture config ===
+ 
+  // === capture config (unchanged) ===
   var SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbzjNCQQO6YvUx-m8pdMQ1fEiAU3jAy5trqmOM8C20jWBHrKo_PT5W19UE_1TsiRdhiL8A/exec"
   var lastResult = null;
   var fb = {};
@@ -286,26 +300,29 @@
     if(!SHEET_ENDPOINT || SHEET_ENDPOINT.indexOf("APPS_SCRIPT") > -1){ console.log("[no endpoint set] payload:", payload); return Promise.resolve(); }
     return fetch(SHEET_ENDPOINT, {method:"POST", mode:"no-cors", headers:{"Content-Type":"text/plain;charset=utf-8"}, body:JSON.stringify(payload)}).catch(function(e){ console.warn("capture failed", e); });
   }
-
-  // pillar/lever map. score 1-5 each. 5 q per pillar, 5 q per lever.
+ 
+  // Each question carries pillar (p), lever (l) AND delivery component (c).
+  // Components mirror the model's E·P·F·F·R: Engine (aerobic), Foundation (strength),
+  // Fuel (nutrition), Recovery (sleep + autonomic restoration). The component split is
+  // what stops a weak "Exercise" lever hiding a strong engine on a weak foundation.
   var Q = [
-    {p:"Physical",  l:"Exercise",  t:"I do strength or resistance training at least twice a week."},
-    {p:"Physical",  l:"Exercise",  t:"I get regular aerobic training — brisk, sustainable \u201CZone 2\u201D effort — most weeks."},
-    {p:"Physical",  l:"Exercise",  t:"Everyday physical tasks — stairs, carrying shopping, getting up off the floor — feel easy."},
-    {p:"Physical",  l:"Nutrition", t:"I eat a clear source of protein at most meals to protect my muscle."},
-    {p:"Physical",  l:"Sleep",     t:"I wake up most mornings feeling physically recovered, not stiff or drained."},
-    {p:"Cognition", l:"Exercise",  t:"I move in ways that raise my heart rate or challenge coordination — which also sharpens the brain."},
-    {p:"Cognition", l:"Nutrition", t:"I regularly eat oily fish, colourful vegetables and other foods that support brain health."},
-    {p:"Cognition", l:"Nutrition", t:"I keep ultra-processed food and alcohol low enough that my mood and focus stay steady."},
-    {p:"Cognition", l:"Sleep",     t:"My sleep is good enough that my memory and concentration feel sharp through the day."},
-    {p:"Cognition", l:"Sleep",     t:"I treat sleep as non-negotiable, rather than the first thing I sacrifice when busy."},
-    {p:"Autonomic", l:"Exercise",  t:"I use easy movement — walks, gentle sessions — to wind down. I'm not only ever training hard."},
-    {p:"Autonomic", l:"Nutrition", t:"My energy stays steady through the day rather than swinging on caffeine and sugar."},
-    {p:"Autonomic", l:"Nutrition", t:"I rarely eat late at night — most of my food lands earlier in the day."},
-    {p:"Autonomic", l:"Sleep",     t:"I fall asleep and stay asleep without relying on alcohol or screens to switch off."},
-    {p:"Autonomic", l:"Sleep",     t:"I generally feel recovered and resilient — and my resting heart rate / HRV, if I track it, backs that up."}
+    {p:"Physical",  l:"Exercise",  c:"Foundation", t:"I do strength or resistance training at least twice a week."},
+    {p:"Physical",  l:"Exercise",  c:"Engine",     t:"I get regular aerobic training — brisk, sustainable \u201CZone 2\u201D effort — most weeks."},
+    {p:"Physical",  l:"Exercise",  c:"Engine",     t:"Everyday physical tasks — stairs, carrying shopping, getting up off the floor — feel easy."},
+    {p:"Physical",  l:"Nutrition", c:"Fuel",       t:"I eat a clear source of protein at most meals to protect my muscle."},
+    {p:"Physical",  l:"Sleep",     c:"Recovery",   t:"I wake up most mornings feeling physically recovered, not stiff or drained."},
+    {p:"Cognition", l:"Exercise",  c:"Engine",     t:"I move in ways that raise my heart rate or challenge coordination — which also sharpens the brain."},
+    {p:"Cognition", l:"Nutrition", c:"Fuel",       t:"I regularly eat oily fish, colourful vegetables and other foods that support brain health."},
+    {p:"Cognition", l:"Nutrition", c:"Fuel",       t:"I keep ultra-processed food and alcohol low enough that my mood and focus stay steady."},
+    {p:"Cognition", l:"Sleep",     c:"Recovery",   t:"My sleep is good enough that my memory and concentration feel sharp through the day."},
+    {p:"Cognition", l:"Sleep",     c:"Recovery",   t:"I treat sleep as non-negotiable, rather than the first thing I sacrifice when busy."},
+    {p:"Autonomic", l:"Exercise",  c:"Recovery",   t:"I use easy movement — walks, gentle sessions — to wind down. I'm not only ever training hard."},
+    {p:"Autonomic", l:"Nutrition", c:"Fuel",       t:"My energy stays steady through the day rather than swinging on caffeine and sugar."},
+    {p:"Autonomic", l:"Nutrition", c:"Fuel",       t:"I rarely eat late at night — most of my food lands earlier in the day."},
+    {p:"Autonomic", l:"Sleep",     c:"Recovery",   t:"I fall asleep and stay asleep without relying on alcohol or screens to switch off."},
+    {p:"Autonomic", l:"Sleep",     c:"Recovery",   t:"I generally feel recovered and resilient — and my resting heart rate / HRV, if I track it, backs that up."}
   ];
-
+ 
   var SCALE = [
     {v:1,t:"Not at all true"},
     {v:2,t:"Rarely true"},
@@ -313,30 +330,34 @@
     {v:4,t:"Mostly true"},
     {v:5,t:"Completely true"}
   ];
-
+ 
   var BANDS = [
     {min:56, name:"Evergreen", color:"var(--green)",
-     copy:"You're already pulling most of the chain. The opportunity now is to fine-tune your weakest link and protect the habits that are clearly working for you."},
+     copy:"You're already pulling most of the chain. The opportunity now is to fine-tune your weakest driver and protect the habits that are clearly working for you."},
     {min:36, name:"On the path", color:"var(--amber)",
      copy:"You're doing real things right. There's one clear next move that will give you the most return — and it's often not the one you'd guess. It's below."},
     {min:0,  name:"A wake-up call", color:"var(--clay)",
-     copy:"This is the turning point talking — and that's useful, not alarming. Every lever that moves your healthspan is within reach, and you're about to see exactly which one to pull first."}
+     copy:"This is the turning point talking — and that's useful, not alarming. Every driver that moves your healthspan is within reach, and you're about to see exactly which one to pull first."}
   ];
-
+ 
+  // Prescription keyed to the weakest COMPONENT (Engine/Foundation/Fuel/Recovery), not the blunt lever.
   var RX = {
-    Exercise:{h:"Movement is your biggest return.",
-      b:"The two highest-value additions in midlife are twice-weekly strength work — to keep the muscle that acts as your glucose sink — and regular, sustainable \u201CZone 2\u201D aerobic sessions that rebuild your metabolic engine. Start with whichever you're missing more."},
-    Nutrition:{h:"How you eat is your biggest return.",
+    Foundation:{h:"Strength is the floor everything else stands on.",
+      b:"Your weakest driver is strength. After 40 it's the single most neglected lever — and the highest-value one: muscle is your glucose sink, your insurance against sarcopenia, and what keeps you robust and injury-resistant. Two short resistance sessions a week, built around a few compound movements, is the move. You don't need a gym full of kit — you need consistency."},
+    Engine:{h:"Your aerobic engine is the gap.",
+      b:"Regular, sustainable \u201CZone 2\u201D aerobic work — the conversational pace you can hold for a while — is what rebuilds your metabolic engine: mitochondria, fat-burning, all-day energy. Two to three easy sessions a week is the foundation almost everything else is built on. Build the base before you add intensity."},
+    Fuel:{h:"How you eat is your biggest return.",
       b:"A mostly whole-food, Mediterranean-pattern way of eating — plenty of plants, oily fish, enough protein, far less ultra-processed food — is one of the strongest anti-inflammatory and metabolic levers you have. Begin by crowding out the processed stuff, not by counting."},
-    Sleep:{h:"Recovery is your biggest return.",
-      b:"Sleep is the lever almost everyone underrates. Protecting it steadies your metabolism, your mood and your hormones, often within days — and it makes every other lever work better. It's the cheapest win on this list."}
+    Recovery:{h:"Recovery is the multiplier.",
+      b:"Sleep and genuine down-regulation are the levers almost everyone underrates. Protecting them steadies your metabolism, mood and hormones, often within days — and makes every other lever work better. It's the cheapest win on this list, and it includes building in easy, restorative movement, not only ever training hard."}
   };
-
+ 
   var LEVERS=["Exercise","Nutrition","Sleep"];
+  var COMPONENTS=["Engine","Foundation","Fuel","Recovery"];
   var PILLARS=["Physical","Cognition","Autonomic"];
   var answers = new Array(Q.length).fill(0);
   var cur = 0;
-
+ 
   var $=function(id){return document.getElementById(id)};
   function show(id){
     var s=document.querySelectorAll(".screen");
@@ -344,7 +365,7 @@
     $(id).classList.add("active");
     window.scrollTo({top:0,behavior:"smooth"});
   }
-
+ 
   function renderQ(){
     var q=Q[cur];
     $("qnum").textContent=("0"+(cur+1)).slice(-2);
@@ -374,31 +395,50 @@
     $("next").textContent = (cur===Q.length-1) ? "See my result →" : "Next →";
     $("back").style.visibility = (cur===0) ? "hidden" : "visible";
   }
-
+ 
   function scores(){
     var pil={Physical:0,Cognition:0,Autonomic:0};
     var lev={Exercise:0,Nutrition:0,Sleep:0};
-    for(var i=0;i<Q.length;i++){pil[Q[i].p]+=answers[i];lev[Q[i].l]+=answers[i];}
+    var comp={}; COMPONENTS.forEach(function(c){comp[c]={sum:0,n:0};});
+    for(var i=0;i<Q.length;i++){
+      pil[Q[i].p]+=answers[i];
+      lev[Q[i].l]+=answers[i];
+      comp[Q[i].c].sum+=answers[i]; comp[Q[i].c].n++;
+    }
     var total=answers.reduce(function(a,b){return a+b},0);
-    return {pil:pil,lev:lev,total:total};
+    var mean={}; COMPONENTS.forEach(function(c){ mean[c]= comp[c].n ? comp[c].sum/comp[c].n : 0; });
+    return {pil:pil,lev:lev,comp:comp,mean:mean,total:total};
   }
-
-  function weakest(lev){
+ 
+  // weakest lever (kept for the existing weak_lever sheet column)
+  function weakestLever(lev){
     var w=LEVERS[0];
     for(var i=1;i<LEVERS.length;i++){if(lev[LEVERS[i]]<lev[w])w=LEVERS[i];}
     return w;
   }
-
-  function drawLine(lev){
-    var W=600,H=180,padX=70,padY=28;
-    var xs=[padX,W/2,W-padX];
-    var maxV=25,minPlot=H-padY,maxPlot=padY;
-    function y(v){return minPlot-(v/maxV)*(minPlot-maxPlot);}
-    var pts=LEVERS.map(function(k,i){return{x:xs[i],y:y(lev[k]),k:k,v:lev[k]};});
-    var weak=weakest(lev);
+  // weakest component by normalised mean (components have unequal question counts) — drives the prescription
+  function weakestComponent(mean){
+    var w=COMPONENTS[0];
+    for(var i=1;i<COMPONENTS.length;i++){if(mean[COMPONENTS[i]]<mean[w])w=COMPONENTS[i];}
+    return w;
+  }
+  // lowest 1-2 individual answers (ties broken by question order)
+  function lowestItems(n){
+    var arr=answers.map(function(v,i){return {i:i,v:v};});
+    arr.sort(function(a,b){return a.v-b.v || a.i-b.i;});
+    return arr.slice(0,n);
+  }
+ 
+  function drawLine(mean){
+    var W=600,H=190,padX=64;
+    var xs=[]; for(var i=0;i<COMPONENTS.length;i++){ xs.push(padX + i*((W-2*padX)/(COMPONENTS.length-1))); }
+    var minPlot=H-40,maxPlot=34;
+    function y(v){return minPlot-(v/5)*(minPlot-maxPlot);} // mean is 0-5
+    var weak=weakestComponent(mean);
+    var pts=COMPONENTS.map(function(k,i){return{x:xs[i],y:y(mean[k]),k:k,v:mean[k]};});
     var svg="";
-    // connecting path
-    var d="M"+pts[0].x+","+pts[0].y+" L"+pts[1].x+","+pts[1].y+" L"+pts[2].x+","+pts[2].y;
+    var d="M";
+    pts.forEach(function(pt,i){ d+=(i?" L":"")+pt.x+","+pt.y; });
     svg+='<path d="'+d+'" fill="none" stroke="#C7CCC2" stroke-width="2"/>';
     pts.forEach(function(pt){
       var isWeak=pt.k===weak;
@@ -408,20 +448,33 @@
         svg+='<circle cx="'+pt.x+'" cy="'+pt.y+'" r="16" fill="#B0543B" opacity="0.13"/>';
       }
       svg+='<circle cx="'+pt.x+'" cy="'+pt.y+'" r="'+r+'" fill="'+col+'"/>';
-      svg+='<text x="'+pt.x+'" y="'+(H-6)+'" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="14" font-weight="600" fill="#16302A">'+pt.k+'</text>';
-      svg+='<text x="'+pt.x+'" y="'+(pt.y-16)+'" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="13" fill="#5C6B64">'+pt.v+'/25</text>';
+      svg+='<text x="'+pt.x+'" y="'+(H-8)+'" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="13" font-weight="600" fill="#16302A">'+pt.k+'</text>';
+      svg+='<text x="'+pt.x+'" y="'+(pt.y-16)+'" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="12" fill="#5C6B64">'+pt.v.toFixed(1)+'</text>';
       if(isWeak){
         svg+='<text x="'+pt.x+'" y="'+(pt.y+30)+'" text-anchor="middle" font-family="Fraunces,serif" font-style="italic" font-size="13" fill="#B0543B">start here</text>';
       }
     });
     $("lineviz").innerHTML=svg;
   }
-
+ 
+  function renderLowest(){
+    var items=lowestItems(2);
+    var html="";
+    items.forEach(function(o){
+      var q=Q[o.i];
+      html+='<div class="item">'+
+        '<div class="pip">'+o.v+'<span>/5</span></div>'+
+        '<div class="itxt"><span class="itag">'+q.c+' · '+q.l+'</span>'+q.t+'</div>'+
+      '</div>';
+    });
+    $("lowest").innerHTML=html;
+  }
+ 
   function renderResult(){
     var s=scores();
     // reset feedback UI for a fresh result
     $("cta").style.display=""; $("thanks").style.display="none";
-    var sendBtn=$("fbsend"); if(sendBtn){ sendBtn.disabled=false; sendBtn.textContent="Send feedback \u2192"; }
+    var sendBtn=$("fbsend"); if(sendBtn){ sendBtn.disabled=false; sendBtn.textContent="Send feedback →"; }
     fb={};
     var fbBtns=document.querySelectorAll(".fbopts button"); for(var fi=0; fi<fbBtns.length; fi++){ fbBtns[fi].setAttribute("aria-pressed","false"); }
     if($("fb_comment"))$("fb_comment").value=""; if($("fb_email"))$("fb_email").value="";
@@ -430,7 +483,8 @@
     $("bandname").textContent=band.name;
     $("bandname").style.color=band.color;
     $("bandcopy").textContent=band.copy;
-    drawLine(s.lev);
+    drawLine(s.mean);
+    renderLowest();
     // pillar bars
     var bars=$("bars");bars.innerHTML="";
     PILLARS.forEach(function(k){
@@ -439,12 +493,24 @@
         '<div class="track"><div class="fill" data-w="'+(s.pil[k]/25*100)+'"></div></div>';
       bars.appendChild(row);
     });
-    // a weak lever drives the headline starting point
-    var w=weakest(s.lev);
-    $("rxhead").textContent=RX[w].h;
-    $("rxbody").textContent=RX[w].b;
+    // the weakest COMPONENT drives the headline starting point
+    var wc=weakestComponent(s.mean);
+    var wl=weakestLever(s.lev);
+    $("rxhead").textContent=RX[wc].h;
+    $("rxbody").textContent=RX[wc].b;
+    // lowest items, formatted for capture e.g. "Q1 Foundation 1; Q11 Recovery 2"
+    var low=lowestItems(2).map(function(o){ return "Q"+(o.i+1)+" "+Q[o.i].c+" "+o.v; }).join("; ");
     // store the computed profile for the feedback submit
-    lastResult = {total:s.total, band:band.name, physical:s.pil.Physical, cognition:s.pil.Cognition, autonomic:s.pil.Autonomic, exercise:s.lev.Exercise, nutrition:s.lev.Nutrition, sleep:s.lev.Sleep, weak:w};
+    lastResult = {
+      total:s.total, band:band.name,
+      physical:s.pil.Physical, cognition:s.pil.Cognition, autonomic:s.pil.Autonomic,
+      exercise:s.lev.Exercise, nutrition:s.lev.Nutrition, sleep:s.lev.Sleep,
+      weak:wl,                         // weakest lever (existing column)
+      // new component fields:
+      engine:+s.mean.Engine.toFixed(2), foundation:+s.mean.Foundation.toFixed(2),
+      fuel:+s.mean.Fuel.toFixed(2), recovery:+s.mean.Recovery.toFixed(2),
+      weak_component:wc, lowest:low
+    };
     show("result");
     // animate bars after paint
     requestAnimationFrame(function(){requestAnimationFrame(function(){
@@ -452,7 +518,7 @@
       for(var i=0;i<fills.length;i++)fills[i].style.width=fills[i].getAttribute("data-w")+"%";
     })});
   }
-
+ 
   // events
   $("begin").addEventListener("click",function(){cur=0;show("quiz");renderQ();});
   $("next").addEventListener("click",function(){
@@ -484,13 +550,15 @@
       var payload={
         total:lr.total, band:lr.band, physical:lr.physical, cognition:lr.cognition, autonomic:lr.autonomic,
         exercise:lr.exercise, nutrition:lr.nutrition, sleep:lr.sleep, weak:lr.weak,
+        engine:lr.engine, foundation:lr.foundation, fuel:lr.fuel, recovery:lr.recovery,
+        weak_component:lr.weak_component, lowest:lr.lowest,
         answers:answers.slice(),
         fb_accuracy:fb.accuracy||"", fb_useful:fb.useful||"", fb_email_willing:fb.email_willing||"",
         fb_comment:((($("fb_comment")||{}).value)||"").slice(0,2000),
         email:((($("fb_email")||{}).value)||"").trim(),
         ua:navigator.userAgent, ts_client:new Date().toISOString()
       };
-      fbsendBtn.disabled=true; fbsendBtn.textContent="Sending\u2026";
+      fbsendBtn.disabled=true; fbsendBtn.textContent="Sending…";
       postData(payload).then(function(){
         $("cta").style.display="none"; $("thanks").style.display="block";
         window.scrollTo({top:0, behavior:"smooth"});
